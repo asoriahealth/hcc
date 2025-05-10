@@ -6,7 +6,10 @@ from difflib import SequenceMatcher
 df = pd.read_excel("2025 Midyear_Final ICD-10-CM Mappings.xlsx", skiprows=3, usecols=[0, 1, 2])
 df.columns = ["Diagnosis Code", "Description", "HCC"]
 
-st.title("ICD-10/HCC Code Lookup Tool")
+# Ensure HCC is numeric for filtering
+df["HCC"] = pd.to_numeric(df["HCC"], errors="coerce")
+
+st.title("ICD-10 / HCC Code Lookup Tool")
 
 option = st.radio("Search by:", ("Diagnosis Code", "Description Keyword", "HCC Code"))
 
@@ -36,7 +39,10 @@ elif option == "Description Keyword":
         st.write(result[["Diagnosis Code", "Description", "HCC"]] if not result.empty else "No match found.")
 
 elif option == "HCC Code":
-    hcc_input = st.text_input("Enter HCC Code (e.g., HCC18)")
-    if hcc_input:
-        result = df[df["HCC"].astype(str).str.upper() == hcc_input.upper()]
+    hcc_input = st.text_input("Enter HCC Code (e.g., 18)")
+    if hcc_input.isdigit():
+        hcc_code = int(hcc_input)
+        result = df[df["HCC"] == hcc_code]
         st.write(result[["Diagnosis Code", "Description", "HCC"]] if not result.empty else "No match found.")
+    else:
+        st.warning("Please enter a valid numeric HCC code (e.g., 18)")
