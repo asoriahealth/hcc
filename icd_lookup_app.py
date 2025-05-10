@@ -3,7 +3,7 @@ import streamlit as st
 from difflib import SequenceMatcher
 
 # Load ICD-10 lookup table
-df = pd.read_excel("2025 Midyear_Final ICD-10-CM Mappings.xlsx", skiprows=3, usecols=[0, 1, 2])
+df = pd.read_excel("2025 Midyear_Final ICD-10-CM Mappings.xlsx", skiprows=3, usecols=[0, 1, 6])
 df.columns = ["Diagnosis Code", "Description", "HCC"]
 
 # Ensure HCC is numeric for filtering
