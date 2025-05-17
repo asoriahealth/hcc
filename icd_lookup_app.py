@@ -46,3 +46,8 @@ elif option == "HCC Code":
         st.write(result[["Diagnosis Code", "Description", "HCC"]] if not result.empty else "No match found.")
     else:
         st.warning("Please enter a valid numeric HCC code (e.g., 18)")
+
+
+# Add LinkedIn link at the bottom
+st.markdown("---")
+st.markdown("🔗 Designed by Ismael. Connect with me on [LinkedIn](https://www.linkedin.com/in/ismael-ibrahim-md/)")
